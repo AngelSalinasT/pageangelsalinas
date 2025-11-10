@@ -29,6 +29,7 @@ pnpm-debug.log*
 # deployment / platform artifacts
 .vercel/
 .netlify/
+deploy.sh
 
 # temp files & coverage
 .tmp/
