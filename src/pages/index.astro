@@ -11,6 +11,9 @@ import '../styles/global.css';
   <meta name="generator" content={Astro.generator} />
   <meta name="description" content="Angel Salinas - Backend Engineer & Automatización con IA" />
   <title>Angel Salinas | Backend Engineer</title>
+
+  <!-- TikTok Embed Script -->
+  <script async src="https://www.tiktok.com/embed.js"></script>
 </head>
 <body>
   <!-- Fondo animado de lámpara de lava -->
@@ -267,6 +270,7 @@ import '../styles/global.css';
           <div class="carousel-container">
             <div class="carousel-track">
               <div class="carousel-item">
+                <div class="tiktok-skeleton"></div>
                 <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@angerss_sykes/video/7527546018817166599" data-video-id="7527546018817166599">
                   <section>
                     <a target="_blank" href="https://www.tiktok.com/@angerss_sykes/video/7527546018817166599">@angerss_sykes</a>
@@ -274,6 +278,7 @@ import '../styles/global.css';
                 </blockquote>
               </div>
               <div class="carousel-item">
+                <div class="tiktok-skeleton"></div>
                 <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@angerss_sykes/video/7537930219282337032" data-video-id="7537930219282337032">
                   <section>
                     <a target="_blank" href="https://www.tiktok.com/@angerss_sykes/video/7537930219282337032">@angerss_sykes</a>
@@ -281,6 +286,7 @@ import '../styles/global.css';
                 </blockquote>
               </div>
               <div class="carousel-item">
+                <div class="tiktok-skeleton"></div>
                 <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@angerss_sykes/video/7545003550825336069" data-video-id="7545003550825336069">
                   <section>
                     <a target="_blank" href="https://www.tiktok.com/@angerss_sykes/video/7545003550825336069">@angerss_sykes</a>
@@ -288,6 +294,7 @@ import '../styles/global.css';
                 </blockquote>
               </div>
               <div class="carousel-item">
+                <div class="tiktok-skeleton"></div>
                 <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@angerss_sykes/video/7538547176599768340" data-video-id="7538547176599768340">
                   <section>
                     <a target="_blank" href="https://www.tiktok.com/@angerss_sykes/video/7538547176599768340">@angerss_sykes</a>
@@ -426,7 +433,7 @@ import '../styles/global.css';
         changeLanguage(savedLang);
       }
 
-      // Carrusel de TikTok
+      // Carrusel de TikTok con Skeleton Loaders
       const track = document.querySelector('.carousel-track');
       const items = document.querySelectorAll('.carousel-item');
       const prevBtn = document.querySelector('.carousel-btn-prev');
@@ -436,6 +443,28 @@ import '../styles/global.css';
       if (track && items.length > 0) {
         let currentIndex = 0;
         const totalItems = items.length;
+
+        // Observar todos los videos para detectar cuándo cargan
+        items.forEach((item, index) => {
+          const observer = new MutationObserver(() => {
+            const iframe = item.querySelector('iframe');
+            if (iframe) {
+              console.log('🖼️ Iframe detectado en video', index);
+
+              // Dar tiempo para que el contenido del TikTok se renderice
+              setTimeout(() => {
+                if (!item.classList.contains('loaded')) {
+                  console.log('🎉 Marcando video', index, 'como cargado');
+                  item.classList.add('loaded');
+                }
+              }, 3000);
+
+              observer.disconnect();
+            }
+          });
+
+          observer.observe(item, { childList: true, subtree: true });
+        });
 
         // Crear dots
         for (let i = 0; i < totalItems; i++) {
@@ -491,15 +520,10 @@ import '../styles/global.css';
           if (e.key === 'ArrowRight') nextSlide();
         });
 
+        // Cargar el primer video al inicio
         updateCarousel();
       }
     });
-
-    // Cargar script de TikTok embed
-    const tiktokScript = document.createElement('script');
-    tiktokScript.src = 'https://www.tiktok.com/embed.js';
-    tiktokScript.async = true;
-    document.body.appendChild(tiktokScript);
   </script>
 </body>
 </html>

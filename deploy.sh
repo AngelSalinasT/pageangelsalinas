@@ -6,17 +6,13 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
-# Configuración (EDITA ESTOS VALORES)
-BUCKET_NAME="mi-portfolio-angel"  # Cambia esto por el nombre de tu bucket
-DISTRIBUTION_ID=""  # Agrega tu CloudFront distribution ID aquí (opcional)
+# Configuración
+BUCKET_NAME="portfolio-angel-salinas-2025"
+DISTRIBUTION_ID="E2WCZQZ9JF6OMN"
 
 echo -e "${YELLOW}🚀 Iniciando deployment...${NC}\n"
 
-# Verificar que existe el bucket name
-if [ "$BUCKET_NAME" = "mi-portfolio-angel" ]; then
-  echo -e "${RED}⚠️  IMPORTANTE: Debes editar deploy.sh y cambiar BUCKET_NAME por el nombre de tu bucket${NC}"
-  exit 1
-fi
+# Bucket configurado correctamente
 
 # 1. Build del proyecto
 echo -e "${YELLOW}📦 Construyendo el proyecto...${NC}"
@@ -88,13 +84,8 @@ echo -e "${GREEN}✅ Deployment completado exitosamente!${NC}"
 echo -e "${GREEN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}\n"
 
 echo -e "📍 ${YELLOW}URLs:${NC}"
-echo -e "   S3: http://$BUCKET_NAME.s3-website-us-east-1.amazonaws.com"
-
-if [ ! -z "$DISTRIBUTION_ID" ]; then
-  CF_URL=$(aws cloudfront get-distribution --id $DISTRIBUTION_ID --query 'Distribution.DomainName' --output text 2>/dev/null)
-  if [ ! -z "$CF_URL" ]; then
-    echo -e "   CloudFront: https://$CF_URL"
-  fi
-fi
+echo -e "   🌐 https://angelsalinas.dev"
+echo -e "   🌐 https://www.angelsalinas.dev"
+echo -e "   CloudFront: https://d12jt4z37nyadc.cloudfront.net"
 
 echo -e "\n${GREEN}🎉 Tu portafolio está en vivo!${NC}\n"

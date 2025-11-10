@@ -724,4 +724,62 @@ body {
     font-size: 14px;
     padding: 12px 24px;
   }
+
+  .tiktok-skeleton {
+    height: 600px;
+  }
+}
+
+/* Skeleton Loader para TikTok */
+.tiktok-skeleton {
+  width: 100%;
+  height: 740px;
+  background: rgba(15, 23, 42, 0.5);
+  border-radius: 12px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tiktok-skeleton::before {
+  content: '';
+  width: 48px;
+  height: 48px;
+  border: 3px solid rgba(139, 92, 246, 0.3);
+  border-top-color: #8b5cf6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.carousel-item {
+  position: relative;
+  min-height: 740px;
+}
+
+.carousel-item.loaded .tiktok-skeleton {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.carousel-item .tiktok-embed {
+  position: relative;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.carousel-item.loaded .tiktok-embed {
+  opacity: 1;
 }
